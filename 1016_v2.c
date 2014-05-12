@@ -3,33 +3,8 @@
 #include<math.h>
 #include<string.h>
 
-int sutable[30];
+int sutable[]={0,2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101};
 int suflag;
-
-int judgesu(int n)
-{
-    int i;
-    int mid=(int)(sqrt(n));
-    for(i=2;i<=mid;i++)
-    {
-        if(n%i==0)
-            return 0;
-    }
-    return 1;
-}
-
-void getsutable()
-{
-    int i,k=2;
-    for(i=1;i<30;i++)
-    {
-        while(judgesu(k)==0)
-            k++;
-        sutable[i]=k++;
-        printf("%d,",sutable[i]);
-    }
-    printf("\n");
-}
 
 int getdata(char *data,char **p)
 {
@@ -45,8 +20,6 @@ int getdata(char *data,char **p)
         }
         if(*p!=NULL && (**p==','))  //must judge *p==NULL ?
             --*p;
-
-        //printf("jinzhi: %d\n",sutable[suflag]);
 
         return tmp;
 }
@@ -73,7 +46,6 @@ void getresult(char *data1,char *data2,char *result)
             jinwei=tmp3/sutable[suflag];
             tmp3=tmp3%sutable[suflag];
             suflag++;
-            //printf("%d %d %d\n",tmp1,tmp2,tmp3);
 
             len=sprintf(r_s,"%d",tmp3);
             r_s=r_s+len;
@@ -93,23 +65,16 @@ void getresult(char *data1,char *data2,char *result)
             jinwei=tmp3/sutable[suflag];
             tmp3=tmp3%sutable[suflag];
             suflag++;
-            //printf("%d %d %d\n",tmp1,tmp2,tmp3);
 
             len=sprintf(r_s,"%d",tmp3);
             r_s=r_s+len;
             *r_s=',';
             r_s++;
         }
-
-        //printf("%d jinzhi:%d\n",jinwei,sutable[suflag]);
         len=sprintf(r_s,"%d",jinwei);
         r_s=r_s+len;
-        //*r_s=',';
-        //r_s++;
-
-        //printf("result: %s\n",result);
-
 }
+
 void printstr(char *data)
 {
     char *p=data,*q=NULL,*tmp=NULL;
@@ -117,7 +82,7 @@ void printstr(char *data)
     while(*p!='\0')
         p++;
     q=p;
-    //assert(*p=='\0');
+
     while(q!=NULL)
     {
         while((q!=data)&&(*q!=','))
@@ -160,14 +125,13 @@ void printstr(char *data)
 
 int main()
 {
-        char data1[256],data2[256],result[256];
-        getsutable();
+        char data1[128],data2[128],result[128];
+
         while(scanf("%s%s",data1,data2)==2)
         {
-                memset(result,'\0',256);
+                memset(result,'\0',128);
                 if(strcmp(data1,"0")==0&&strcmp(data2,"0")==0)
                         break;
-                //printf("%s %s\n",data1,data2);
                 suflag=1;
                 getresult(data1,data2,result);
                 printstr(result);
